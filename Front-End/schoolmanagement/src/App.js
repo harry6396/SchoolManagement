@@ -1,7 +1,33 @@
 import React from 'react';
 import './App.css';
 
-function App() {
+var a = [{"a":"text"},{"b":"text"}];
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      items: "jhkjh"
+    };
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:8080/mavenproject1/webapi/myresource/tokenGenerator")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            items: result.token
+          });
+        }
+      )
+  }
+
+render() {
   return (
     <div className="App">
       <div className="schoolName">School Name</div>
@@ -26,8 +52,9 @@ function App() {
           <input className="submitButton" value="Login" type="button"/>
         </div>
       </div>
+      {this.state.items};
     </div>
   );
 }
-
+}
 export default App;
