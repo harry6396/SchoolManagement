@@ -1,0 +1,48 @@
+.schoolName{
+  padding-top: 6%;
+  padding-bottom: 6%;
+  padding-left: 10%;
+  background-color: #B7B7F2;
+  color: white;
+  font-size: 60px;
+}
+.userName{
+  font-size: 40%;
+  color: #B7B7F2;
+  margin-left: 19%;
+  margin-top: 30%;
+  min-width: 20%;
+}
+.passWord{
+  font-size: 40%;
+  color: #B7B7F2;
+  margin-left: 19%;
+  min-width: 20%;
+}
+.inputField{
+  font-size: 16px;
+  margin-left: 30%;
+  border: none;
+  border-radius: 26px;
+  width: 200px;
+  padding-left: 14px;
+  height: 30px;
+  background-color: aliceblue;
+}
+.userDetail{
+  float: right;
+  width: 50%;
+}
+.display-inline{
+  display: inline-block;
+}
+.submitButton{
+  font-size: 40%;
+  color: white;
+  margin-left: 51%;
+  border-radius: 26px;
+  width: 20%;
+  border: none;
+  background-color: #B7B7F2;
+  cursor: pointer;
+}
