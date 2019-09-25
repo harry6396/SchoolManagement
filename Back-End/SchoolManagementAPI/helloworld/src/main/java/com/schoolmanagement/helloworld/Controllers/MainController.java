@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/schoolmanagement")
-public class HelloworldApplication {
+public class MainController {
         private final String sharedKey = "SHARED_KEY";
         
         @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -32,6 +32,6 @@ public class HelloworldApplication {
         }
         
 	public static void main(String[] args) {
-		SpringApplication.run(HelloworldApplication.class, args);
+		SpringApplication.run(MainController.class, args);
 	}
 }
