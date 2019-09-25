@@ -25,6 +25,11 @@ public class HelloworldApplication {
         public Login token(@RequestParam(value = "key") String key, @RequestBody Login resource) {
             return BuisnessLogic.tokenGenerator(resource);
         }
+        @CrossOrigin(origins = "http://localhost:3000")
+        @RequestMapping(value = "/tokenChecker", method = RequestMethod.POST)
+        public Login tokenChecker(@RequestParam(value = "key") String key, @RequestBody Login resource) {
+            return BuisnessLogic.tokenChecker(resource);
+        }
         
 	public static void main(String[] args) {
 		SpringApplication.run(HelloworldApplication.class, args);
