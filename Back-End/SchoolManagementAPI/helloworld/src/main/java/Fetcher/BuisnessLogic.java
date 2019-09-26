@@ -73,6 +73,31 @@ public class BuisnessLogic {
             return login;
         } 
     }
+    public static Login logoutUser(Login userDetails){
+        Connection con = DataFetcher.connectionEstablish();
+        String token = generateNewToken();
+        Login login = new Login();
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "UPDATE Roles "
+                    + "SET Token='" + null + "' WHERE Id='" + userDetails.getUserId()
+                    + "' AND Token='" + userDetails.getToken()+ "';";
+            int affectedRows = stmt.executeUpdate(sql);
+            System.out.println(sql + " -> " + affectedRows);
+            if (affectedRows > 0) {
+                login.setUserId(userDetails.getUserId());
+                login.setToken(token);
+                login.setMessage("Success");
+            } else {
+                login.setMessage("Fail");
+            }
+            return login;
+        } catch (SQLException ex) {
+            Logger.getLogger(BuisnessLogic.class.getName()).log(Level.SEVERE, null, ex);
+            login.setMessage(ex.getMessage());
+            return login;
+        }
+    }
     public static String generateNewToken() {
         byte[] randomBytes = new byte[24];
         secureRandom.nextBytes(randomBytes);
