@@ -10,7 +10,7 @@
     padding-top: 200px;
   }
   
-  .sidenav a {
+  .sidenav,.sidenavOptions  {
     padding: 6px 8px 6px 50px;
     text-decoration: none;
     font-size: 30px;

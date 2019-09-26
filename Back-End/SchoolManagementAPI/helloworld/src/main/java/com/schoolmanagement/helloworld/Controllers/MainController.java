@@ -4,8 +4,6 @@ import Fetcher.BuisnessLogic;
 import com.schoolmanagement.helloworld.Model.Login;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,7 +28,11 @@ public class MainController {
         public Login tokenChecker(@RequestParam(value = "key") String key, @RequestBody Login resource) {
             return BuisnessLogic.tokenChecker(resource);
         }
-        
+        @CrossOrigin(origins = "http://localhost:3000")
+        @RequestMapping(value = "/userLogout", method = RequestMethod.POST)
+        public Login userLogout(@RequestParam(value = "key") String key, @RequestBody Login resource) {
+            return BuisnessLogic.logoutUser(resource);
+        }
 	public static void main(String[] args) {
 		SpringApplication.run(MainController.class, args);
 	}

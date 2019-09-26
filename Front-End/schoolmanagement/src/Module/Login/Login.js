@@ -1,7 +1,6 @@
 import React from 'react';
 import './Login.css';
-import Cookies from 'universal-cookie';
-import {Router} from 'react-router-dom';
+import cookie from 'react-cookies';
 
 class LoginUser extends React.Component {
   constructor(props) {
@@ -29,22 +28,25 @@ handlePasswordChange(event) {
   this.setState({ password: event.target.value });
 }
 
+redirectOnSubmit(){
+  this.props.history.push('/userdashboard');
+}
+
 checkLocalToken(){
-  let cookies = new Cookies();
-  if(cookies.get('schoolManagementCookie')!== null && cookies.get('schoolManagementCookie')!== undefined){
+  console.log(cookie.load('schoolManagementCookie'));
+  if(cookie.load('schoolManagementCookie')!== null && cookie.load('schoolManagementCookie')!== undefined){
     fetch("http://localhost:8080/schoolmanagement/tokenChecker?key=SHARED_KEY",{
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       method: "POST",
-      body: JSON.stringify({"userId":cookies.get('schoolManagementCookie').userId,"userPassword":cookies.get('schoolManagementCookie').token})
+      body: JSON.stringify({"userId":cookie.load('schoolManagementCookie').userId,"token":cookie.load('schoolManagementCookie').token})
     })
       .then(res => res.json())
       .then(
         (result) => {
           if(result.message === "Success"){
-            console.log("Hello");
             this.redirectOnSubmit();
           }
         }
@@ -65,17 +67,12 @@ submitData() {
     .then(
       (result) => {
         if(result.message === "Success"){
-          let cookies = new Cookies();
-          cookies.set('schoolManagementCookie', result, { path: '/' });
+          cookie.save('schoolManagementCookie', result, { path: '/' });
+          console.log(cookie.load('schoolManagementCookie'));
           this.redirectOnSubmit();
         }
       }
     )
-}
-
-redirectOnSubmit(){
-  const { history: { push } } = this.props;
-  push('/userdashboard');
 }
 
 render() {
