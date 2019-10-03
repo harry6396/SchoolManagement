@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@version/react-router-v3": "^1.0.0",
     "html-react-parser": "^0.9.1",
     "interweave": "^11.1.0",
     "react": "^16.9.0",

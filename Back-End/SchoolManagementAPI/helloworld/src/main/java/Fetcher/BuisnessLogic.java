@@ -6,6 +6,7 @@
 package Fetcher;
 
 import com.schoolmanagement.helloworld.Model.Login;
+import com.schoolmanagement.helloworld.Model.TeacherDetail;
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -102,5 +103,36 @@ public class BuisnessLogic {
         byte[] randomBytes = new byte[24];
         secureRandom.nextBytes(randomBytes);
         return base64Encoder.encodeToString(randomBytes);
+    }
+    public static TeacherDetail getUserDetails(Login resource){
+        TeacherDetail teacherDetail = new TeacherDetail();
+        Connection con = DataFetcher.connectionEstablish();
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "SELECT FirstName, LastName, DOJ, PermanentAddress,"
+                    + " CorrespondenceAddress, PhoneNumber, EmailID, PreviousSchool"
+                    + " FROM Teacher T INNER JOIN Roles R ON T.TeacherID=R.ID"
+                    + " WHERE R.Token='"+resource.token+"'";
+            ResultSet rst = stmt.executeQuery(sql);
+            if (rst!=null) {
+                teacherDetail.setFirstName(rst.getString("FirstName"));
+                teacherDetail.setLastName(rst.getString("LastName"));
+                teacherDetail.setDateOfJoining(rst.getString("DOJ"));
+                teacherDetail.setPermanentAddress(rst.getString("PermanentAddress"));
+                teacherDetail.setCorrespondanceAddress(rst.getString("CorrespondenceAddress"));
+                teacherDetail.setPhoneNumber(rst.getString("PhoneNumber"));
+                teacherDetail.setEmailID(rst.getString("EmailID"));
+                teacherDetail.setPreviousSchool(rst.getString("PreviousSchool"));
+                teacherDetail.setMessage("Success");
+                return teacherDetail;
+            } else {
+                teacherDetail.setMessage("Fail");
+            }
+            return teacherDetail;
+        } catch (SQLException ex) {
+            Logger.getLogger(BuisnessLogic.class.getName()).log(Level.SEVERE, null, ex);
+            teacherDetail.setMessage(ex.getMessage());
+            return teacherDetail;
+        } 
     }
 }

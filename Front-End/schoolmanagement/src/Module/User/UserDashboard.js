@@ -1,12 +1,16 @@
 import React from 'react';
-import './UserDashboard.css';
 import cookie from 'react-cookies';
+import AddUser from './AddUser';
+import Login from '../Login/Login';
+import {Route, NavLink} from 'react-router-dom';
+import Profile from './Profile';
+import './UserDashboard.css';
 
 class UserDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: ''
+      userDetails: []
     };
 }
 
@@ -35,15 +39,22 @@ onLogout(){
 
 render() {
   return (
-    <div className="header">
-      <div className="sidenav">
-          <div className="sidenavOptions">Profile</div>
-          <div className="sidenavOptions">Class</div>
-          <div className="sidenavOptions">Department</div>
-          <div className="sidenavOptions">Contact</div>
-          <div className="sidenavOptions" onClick={ this.onLogout.bind(this) }>Logout</div>
+        <div>
+        <div className="header">
+        <div className="sidenav">
+          <div className="sidenavOptions"><NavLink to="/userdashboard/profile">Profile</NavLink></div>
+          <div className="sidenavOptions"><NavLink to="/userdashboard/profile">Class</NavLink></div>
+          <div className="sidenavOptions"><NavLink to="/userdashboard/profile">Department</NavLink></div>
+          <div className="sidenavOptions"><NavLink to="/userdashboard/profile">Contact</NavLink></div>
+          <div className="sidenavOptions" onClick={() => this.onLogout()}><NavLink to="/">Logout</NavLink></div>
+      </div>
+      </div>
+          <div className="content">
+          <Route exact path = {this.props.match.path} component = {Profile}/>
+          <Route path = {'${this.props.match.path/adduser}'} component = {AddUser} />
+          <Route path = {'${this.props.match.path/profile}'} component={Profile} />
+          </div>
         </div>
-    </div>
   );
 }
 }

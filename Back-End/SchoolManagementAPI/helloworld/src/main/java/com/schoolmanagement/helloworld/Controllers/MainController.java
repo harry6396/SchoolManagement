@@ -2,6 +2,7 @@ package com.schoolmanagement.helloworld.Controllers;
 
 import Fetcher.BuisnessLogic;
 import com.schoolmanagement.helloworld.Model.Login;
+import com.schoolmanagement.helloworld.Model.TeacherDetail;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +33,11 @@ public class MainController {
         @RequestMapping(value = "/userLogout", method = RequestMethod.POST)
         public Login userLogout(@RequestParam(value = "key") String key, @RequestBody Login resource) {
             return BuisnessLogic.logoutUser(resource);
+        }
+        @CrossOrigin(origins = "http://localhost:3000")
+        @RequestMapping(value = "/userProfile", method = RequestMethod.POST)
+        public TeacherDetail userDetails(@RequestParam(value = "key") String key, @RequestBody Login resource) {
+            return BuisnessLogic.getUserDetails(resource);
         }
 	public static void main(String[] args) {
 		SpringApplication.run(MainController.class, args);

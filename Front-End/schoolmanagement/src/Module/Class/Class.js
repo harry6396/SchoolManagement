@@ -1,8 +1,7 @@
 import React from 'react';
-import './Login.css';
 import cookie from 'react-cookies';
 
-class LoginUser extends React.Component {
+class Class extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -101,4 +100,4 @@ render() {
   );
 }
 }
-export default LoginUser;
+export default Class;
